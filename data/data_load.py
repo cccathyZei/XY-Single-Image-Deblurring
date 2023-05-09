@@ -30,7 +30,7 @@ def train_dataloader(path, batch_size=64, num_workers=0, use_transform=True):
 
 
 def test_dataloader(path, batch_size=1, num_workers=0):
-    image_dir = os.path.join(path, 'test')
+    image_dir = os.path.join(path, 'test_c')
     dataloader = DataLoader(
         DeblurDataset(image_dir),
         batch_size=batch_size,
@@ -64,8 +64,8 @@ class DeblurDataset(Dataset):
         return len(self.image_list)
 
     def __getitem__(self, idx):
-        image = Image.open(os.path.join(self.image_dir, 'blur', self.image_list[idx]))
-        label = Image.open(os.path.join(self.image_dir, 'sharp', self.image_list[idx]))
+        image = Image.open(os.path.join(self.image_dir, 'source', self.image_list[idx]))
+        label = Image.open(os.path.join(self.image_dir, 'target', self.image_list[idx]))
 
         if self.transform:
             image, label = self.transform(image, label)
